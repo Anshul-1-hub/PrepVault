@@ -10,5 +10,44 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  SENIOR
+  ADMIN
+}
+
+model User {
+  id Int @id
+  email String @unique
+  name String
+  role Role @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  experiences Experience[]
+}
+
+enum Status{
+  ACCEPTED
+  REJECTED
+}
+
+model Experience {
+  blogId String @id @default(cuid())               // to give id to each blog like thing, like blogid
+  userId Int
+  name String          // allowing some seniors who dont want to reveal their identity
+  company String                        
+  role String                                  // the role which they are assigned in the their respective company
+  status Status
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Comment{
+  commentId String @id @default(cuid())
+  
 }
