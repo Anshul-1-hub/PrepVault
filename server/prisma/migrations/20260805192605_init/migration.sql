@@ -12,7 +12,7 @@ CREATE TYPE "StatusStudent" AS ENUM ('APPLIED', 'SHORTLISTED', 'UNDER_PROCESS', 
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'STUDENT',
@@ -25,7 +25,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Experience" (
     "blogId" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "company" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "status" "Status" NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE "Experience" (
 -- CreateTable
 CREATE TABLE "Comment" (
     "commentId" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "blogId" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -50,7 +50,7 @@ CREATE TABLE "Comment" (
 
 -- CreateTable
 CREATE TABLE "ExperienceUpvote" (
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "blogId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE "ExperienceUpvote" (
 -- CreateTable
 CREATE TABLE "Question" (
     "questionId" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "company" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "difficulty" "Difficulty" NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE "Question" (
 
 -- CreateTable
 CREATE TABLE "QuestionUpvote" (
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "questionId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE "QuestionUpvote" (
 -- CreateTable
 CREATE TABLE "Resource" (
     "resourceId" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "URL" TEXT NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE "Resource" (
 
 -- CreateTable
 CREATE TABLE "ResourceUpvote" (
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "resourceId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE "PlacementDrive" (
 -- CreateTable
 CREATE TABLE "StudentDriveApplication" (
     "applicationId" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "driveId" TEXT NOT NULL,
     "status" "StatusStudent" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

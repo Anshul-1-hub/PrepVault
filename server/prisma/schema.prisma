@@ -19,145 +19,154 @@ enum Role {
 }
 
 model User {
-  id Int @id
-  email String @unique
-  name String
-  role Role @default(STUDENT)
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      Role     @default(STUDENT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  experiences Experience[]
-  comments Comment[]
-  questions Question[]
+  experiences     Experience[]
+  comments        Comment[]
+  questions       Question[]
   questionUpvotes QuestionUpvote[]
-  blogUpvotes ExperienceUpvote[]
-  resources Resource[]
+  blogUpvotes     ExperienceUpvote[]
+  resources       Resource[]
   resourceUpvotes ResourceUpvote[]
-  application StudentDriveApplication[]
+  application     StudentDriveApplication[]
+  emailVerified   Boolean                   @default(false)
+  image           String?
+  sessions        Session[]
+  accounts        Account[]
+
+  @@map("user")
 }
 
-enum Status{
+enum Status {
   ACCEPTED
   REJECTED
 }
 
 model Experience {
-  blogId String @id @default(cuid())               // to give id to each blog like thing, like blogid
-  userId Int         
-  company String                        
-  role String                                  // the role which they are assigned in the their respective company
-  status Status
-  content String
+  blogId    String   @id @default(cuid()) // to give id to each blog like thing, like blogid
+  userId    String
+  company   String
+  role      String // the role which they are assigned in the their respective company
+  status    Status
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user User @relation(fields: [userId], references: [id])          // "user" is the relationship name — use comment.user to access the related User object
+  user      User     @relation(fields: [userId], references: [id]) // "user" is the relationship name — use comment.user to access the related User object
 
   comments Comment[]
-  upvotes ExperienceUpvote[]
+  upvotes  ExperienceUpvote[]
 }
 
-model Comment{
-  commentId String @id @default(cuid())
-  userId Int
-  blogId String 
-  content String
+model Comment {
+  commentId String   @id @default(cuid())
+  userId    String
+  blogId    String
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   experience Experience @relation(fields: [blogId], references: [blogId])
-  user User @relation(fields: [userId], references: [id])
+  user       User       @relation(fields: [userId], references: [id])
 }
 
-model ExperienceUpvote{
-  userId Int
-  blogId String
+model ExperienceUpvote {
+  userId    String
+  blogId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user User       @relation(fields: [userId], references: [id])
   blog Experience @relation(fields: [blogId], references: [blogId])
+
   @@id([userId, blogId])
 }
 
-enum Difficulty{
+enum Difficulty {
   EASY
   MODERATE
   HARD
 }
 
-model Question{
-  questionId String @id @default(cuid())
-  userId Int
-  company String
-  role String                        // for which role of the compamy the question was asked for
+model Question {
+  questionId String     @id @default(cuid())
+  userId     String
+  company    String
+  role       String // for which role of the compamy the question was asked for
   difficulty Difficulty
-  topic String
-  question String
-  round String                   // in which round the question was asked
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  topic      String
+  question   String
+  round      String // in which round the question was asked
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   user User @relation(fields: [userId], references: [id])
 
   upvotes QuestionUpvote[]
 }
 
-model QuestionUpvote{
-  userId Int
+model QuestionUpvote {
+  userId     String
   questionId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
   question Question @relation(fields: [questionId], references: [questionId])
+
   @@id([userId, questionId])
 }
 
-model Resource{
-  resourceId String @id @default(cuid())
-  userId Int
-  title String
+model Resource {
+  resourceId  String   @id @default(cuid())
+  userId      String
+  title       String
   description String
-  URL String
-  role String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  URL         String
+  role        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id])
 
   upvotes ResourceUpvote[]
 }
 
-model ResourceUpvote{
-  userId Int
+model ResourceUpvote {
+  userId     String
   resourceId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
-  resource Resource @relation(fields: [resourceId], references: [resourceId])  
+  user     User     @relation(fields: [userId], references: [id])
+  resource Resource @relation(fields: [resourceId], references: [resourceId])
+
   @@id([userId, resourceId])
 }
 
-model PlacementDrive{
-  id String @id @default(cuid())
-  company String
-  offertype String                 // type of hiring, internship or placement
-  role String
+model PlacementDrive {
+  id        String   @id @default(cuid())
+  company   String
+  offertype String // type of hiring, internship or placement
+  role      String
   dateStart DateTime
-  dateEnd DateTime
-  criteria Decimal
-  stipend Decimal?              // for internship
-  package Decimal?             // for placement   
-  branch String[]               // branches eligible
-  location String             // posting location
+  dateEnd   DateTime
+  criteria  Decimal
+  stipend   Decimal? // for internship
+  package   Decimal? // for placement   
+  branch    String[] // branches eligible
+  location  String // posting location
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   applications StudentDriveApplication[]
 }
 
-enum StatusStudent{
+enum StatusStudent {
   APPLIED
   SHORTLISTED
   UNDER_PROCESS
@@ -165,14 +174,62 @@ enum StatusStudent{
   ACCEPTED
 }
 
-model StudentDriveApplication{
-  applicationId String @id @default(cuid())
-  userId Int
-  driveId String
-  status StatusStudent
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model StudentDriveApplication {
+  applicationId String        @id @default(cuid())
+  userId        String
+  driveId       String
+  status        StatusStudent
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   drive PlacementDrive @relation(fields: [driveId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  user  User           @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }
