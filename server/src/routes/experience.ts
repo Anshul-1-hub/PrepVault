@@ -10,4 +10,4 @@ router.get("/all", getExperiences);
 router.get("/:blogId", getExperienceById);
 router.delete("/:blogId", requireAuth, requireRole(["SENIOR", "ADMIN"]), deleteExperience);
 
-export default router;
+export default router;  

@@ -123,7 +123,7 @@ export const deleteExperience = async(req: Request, res:Response, next: NextFunc
             return;
         }
 
-        if(req.user?.role === "SENIOR" && experience.userId !== req.user?.id){
+        if(req.user?.role !== "ADMIN" && experience.userId !== req.user?.id){
             res.status(403).json({message: "You are not authorized to perform this action!"});
             return;
         }
