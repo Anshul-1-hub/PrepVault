@@ -3,6 +3,7 @@ import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth.js";
 import experienceRouter from "./routes/experience.js";
 import commentRouter from "./routes/comment.js"
+import questionRouter from "./routes/question.js"
 import "dotenv/config"
 
 const app = express();
@@ -13,8 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use("/api/experiences", experienceRouter);
-app.use("/api/experiences/:blogId/comments", commentRouter)
-
+app.use("/api/experiences/:blogId/comments", commentRouter);
+app.use("/api/questions", questionRouter)
 
 const PORT = process.env.PORT || 5000;
 
