@@ -92,7 +92,7 @@ export const deleteQuestion = async (req: Request, res:Response, next: NextFunct
 
         if(req.user?.role !== "ADMIN" && q.userId !== req.user?.id){
             res.status(403).json({message: "You are not authorized to perform this action!"})
-            return
+            return  
         }
 
         const result = await prisma.question.delete({

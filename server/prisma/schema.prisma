@@ -127,7 +127,7 @@ model Resource {
   title       String
   description String
   URL         String
-  role        String
+  domain      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
