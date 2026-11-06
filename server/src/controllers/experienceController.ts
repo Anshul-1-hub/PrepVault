@@ -46,35 +46,28 @@ export const getExperiences = async (req: Request, res: Response, next: NextFunc
                 status: true,
                 content: true
             }
-        });
+        })
 
         if(result.length == 0){                                // if there are no experiences created yet, first i did !result which was wrong because prisma returns an empty array in this case
-            res.json({message: "Nothing to see here."});
-            return;
+            res.json({message: "Nothing to see here."})
+            return
         }
 
-        res.json(result);
+        res.json(result)
     }
 
     catch(error){
-        next(error);
+        next(error)
     }
 }
 
 export const getExperienceById = async(req: Request, res:Response, next: NextFunction): Promise<void> => {
     try{
-        const {blogId} = req.params;
-
-        if(typeof blogId !== "string"){
-            res.status(400).json({
-                message: "Invalid BlogId"
-            });
-            return;
-        }
+        const {blogId} = req.params
 
         const result = await prisma.experience.findUnique({
             where: {
-                blogId: blogId
+                blogId: blogId as string
             },
 
             select: {
@@ -107,14 +100,9 @@ export const deleteExperience = async(req: Request, res:Response, next: NextFunc
     try{
         const {blogId} = req.params;
 
-        if(typeof blogId !== "string"){
-            res.status(400).json({message: "Invalid BlogId"});
-            return;
-        }
-
         const experience = await prisma.experience.findUnique({
             where: {
-                blogId: blogId
+                blogId: blogId as string
             }
         })
 
@@ -130,7 +118,7 @@ export const deleteExperience = async(req: Request, res:Response, next: NextFunc
 
         const result = await prisma.experience.delete({
             where: {
-                blogId: blogId
+                blogId: blogId as string
             }
         })
 

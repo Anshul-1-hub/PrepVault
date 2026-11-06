@@ -155,16 +155,16 @@ model PlacementDrive {
   role      String
   dateStart DateTime
   dateEnd   DateTime
-  criteria  Decimal
+  criteria  Decimal?
   stipend   Decimal? // for internship
-  package   Decimal? // for placement   
+  salary    Decimal?  @map("package")  // for placement, mapping because package is a reserved keyword in TS  
   branch    String[] // branches eligible
   location  String // posting location
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   applications StudentDriveApplication[]
-}
+} // i have to later on add a description field for company description
 
 enum StatusStudent {
   APPLIED
