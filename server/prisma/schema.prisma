@@ -184,6 +184,7 @@ model StudentDriveApplication {
 
   drive PlacementDrive @relation(fields: [driveId], references: [id])
   user  User           @relation(fields: [userId], references: [id])
+  @@unique([userId, driveId])
 }
 
 model Session {

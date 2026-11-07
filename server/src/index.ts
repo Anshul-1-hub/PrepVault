@@ -6,6 +6,7 @@ import commentRouter from "./routes/comment.js"
 import questionRouter from "./routes/question.js"
 import resourceRouter from "./routes/resource.js"
 import driveRouter from "./routes/placementdrive.js"
+import applicationRouter from "./routes/application.js"
 import "dotenv/config"
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("/api/experiences/:blogId/comments", commentRouter);
 app.use("/api/questions", questionRouter)
 app.use("/api/resources", resourceRouter)
 app.use("/api/drives", driveRouter)
+app.use("/api/applications", applicationRouter)
 
 const PORT = process.env.PORT || 5000;
 
