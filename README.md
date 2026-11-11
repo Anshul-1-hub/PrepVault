@@ -82,3 +82,7 @@ prepvault/
 - Rate limiting is applied on all POST routes (5 requests/minute per user)
 - Resources are cached in Redis with a 1-hour TTL, invalidated on delete
 - BetterAuth handles sessions — add `Origin: http://localhost:5173` header when testing with Postman
+
+## Further improvements
+
+- Changing the structure of the directories from controllers to services and utils segregation for better scalability in the future.
