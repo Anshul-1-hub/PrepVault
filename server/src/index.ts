@@ -8,8 +8,14 @@ import resourceRouter from "./routes/resource.js"
 import driveRouter from "./routes/placementdrive.js"
 import applicationRouter from "./routes/application.js"
 import "dotenv/config"
+import cors from "cors"
 
 const app = express();
+
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}))
 
 app.all("/api/auth/{*any}", toNodeHandler(auth))
 
