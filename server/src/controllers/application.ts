@@ -55,11 +55,6 @@ export const getMyApplications = async(req: Request, res: Response, next: NextFu
             }
         })
 
-        if(results.length === 0){
-            res.json({message: "Nothing to see here!"})
-            return
-        }
-
         res.json(results)
     }
     catch(error){

@@ -48,16 +48,10 @@ export const getResource = async(req: Request, res: Response, next: NextFunction
                 ...(req.query.domain && {domain: req.query.domain as string})
             }
         })
-
-        if(resources.length === 0){
-            res.json({message: "No resources found!"})
-            return
-        }
-
-        else{
-            await redis.set(cacheKey, JSON.stringify(resources), {ex: 3600})
-            res.json(resources)
-        }
+        
+        await redis.set(cacheKey, JSON.stringify(resources), {ex: 3600})
+        res.json(resources)
+        
     }
     catch(error){
         next(error)

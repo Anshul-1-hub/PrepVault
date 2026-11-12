@@ -51,11 +51,6 @@ export const getDrives = async(req: Request, res: Response, next: NextFunction):
             }
         })
 
-        if(result.length === 0){
-            res.json({message: "Nothing to see here."})
-            return
-        }
-
         res.json(result)
     }
     catch(error){

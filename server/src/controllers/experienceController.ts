@@ -48,11 +48,6 @@ export const getExperiences = async (req: Request, res: Response, next: NextFunc
             }
         })
 
-        if(result.length == 0){                                // if there are no experiences created yet, first i did !result which was wrong because prisma returns an empty array in this case
-            res.json({message: "Nothing to see here."})
-            return
-        }
-
         res.json(result)
     }
 

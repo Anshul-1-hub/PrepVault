@@ -58,11 +58,6 @@ export const getQuestions = async(req: Request, res: Response, next: NextFunctio
             }
         })
 
-        if(result.length === 0){
-            res.send("No such questions found!")
-            return
-        }
-
         res.json(result)
     }
 

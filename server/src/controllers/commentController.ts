@@ -46,11 +46,6 @@ export const getComments = async(req: Request, res:Response, next: NextFunction)
             }
         })
 
-        if(result.length == 0){
-            res.json({message: "No comments yet!"})
-            return
-        }
-
         res.json(result)
     }
 
