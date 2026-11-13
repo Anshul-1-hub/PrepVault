@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
+import ExperiencesPage from './pages/ExperiencesPage'
+import IndividualExperiencePage from './pages/IndividualExperiencePage'
 
 function App() {
 
@@ -14,8 +16,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path='/experiences' element={<div>Experiences</div>} />
-          <Route path="/experiences/:blogId" element={<div>Individual Experience</div>} />
+          <Route path='/experiences' element={<ExperiencesPage />} />
+          <Route path="/experiences/:blogId" element={<IndividualExperiencePage />} />
           <Route path='/questions' element={<div>Questions</div>} />
           <Route path='/resources' element={<div>Resources</div>} />
           <Route path='/drives' element={<div>Drives</div>}/>
