@@ -1,18 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { instance } from "../lib/api";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
-type Experience = {
-    blogId: string,
-    user: {
-        name: string,
-    },
-    company: string,
-    role: string,
-    status: string,
-    content: string
-}
+// type Experience = {
+//     blogId: string,
+//     user: {
+//         name: string,
+//     },
+//     company: string,
+//     role: string,
+//     status: string,
+//     content: string
+// }
 
 type Comment = {
     commentId: string,
@@ -24,8 +24,10 @@ type Comment = {
 }
 
 export default function IndividualExperiencePage(){
-    const navigate = useNavigate()
     const {blogId} = useParams()
+    const queryClient = useQueryClient()
+
+    const [comment, setComment] = useState("")
 
     const {data: exp, isLoading, isError, error} = useQuery({
         queryKey: ["indExperience", blogId],
@@ -55,14 +57,27 @@ export default function IndividualExperiencePage(){
         return <p>{error2.message}</p>
     }
 
+    const handlePost = async() => {
+        if(!comment.trim()) return
+        await instance.post(`/api/experiences/${blogId}/comments/create`, {
+            content: comment
+        })
+        setComment("")
+        queryClient.invalidateQueries({queryKey: ["comments", blogId], exact: true})
+    }
+
     return(
         <>
             <p>{exp.company}, {exp.role} - {exp.status}</p>
             <p>{exp.content}</p>
 
             <div>
-                <input type="text" />
-                
+                <input type="text" 
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    placeholder="Add a comment..."
+                />
+                <button onClick={handlePost}>Post</button>
             </div>
 
             {comments.length === 0 ? (
