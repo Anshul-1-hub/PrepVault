@@ -40,7 +40,7 @@ export default function IndividualExperiencePage(){
     const {data: comments, isLoading: isLoading2, isError: isError2, error: error2} = useQuery({
         queryKey: ["comments", blogId],
         queryFn: async() => {
-            const res = await instance.get(`/api/experiences/${blogId}/comments`)
+            const res = await instance.get(`/api/experiences/${blogId}/comments/all`)
             return res.data
         }
     })

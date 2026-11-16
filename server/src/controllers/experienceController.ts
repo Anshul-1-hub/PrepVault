@@ -35,6 +35,7 @@ export const getExperiences = async (req: Request, res: Response, next: NextFunc
     try{
         const result = await prisma.experience.findMany({
             select: {
+                blogId: true,
                 user: {
                     select: {
                         name: true
@@ -66,6 +67,7 @@ export const getExperienceById = async(req: Request, res:Response, next: NextFun
             },
 
             select: {
+                blogId: true,
                 user: {
                     select: {
                         name: true

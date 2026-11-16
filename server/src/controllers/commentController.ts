@@ -37,6 +37,7 @@ export const getComments = async(req: Request, res:Response, next: NextFunction)
             },
 
             select:{
+                createdAt: true,
                 user:{
                     select:{
                         name:true
