@@ -48,7 +48,7 @@ export const getQuestions = async(req: Request, res: Response, next: NextFunctio
                         name:true
                     }
                 },
-
+                questionId: true,
                 company: true,
                 role: true,
                 difficulty: true,

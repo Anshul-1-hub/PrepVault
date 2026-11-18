@@ -5,6 +5,7 @@ import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
 import ExperiencesPage from './pages/ExperiencesPage'
 import IndividualExperiencePage from './pages/IndividualExperiencePage'
+import QuestionPage from './pages/QuestionPage'
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path='/experiences' element={<ExperiencesPage />} />
           <Route path="/experiences/:blogId" element={<IndividualExperiencePage />} />
-          <Route path='/questions' element={<div>Questions</div>} />
+          <Route path='/questions' element={<QuestionPage />} />
           <Route path='/resources' element={<div>Resources</div>} />
           <Route path='/drives' element={<div>Drives</div>}/>
           <Route path='/drives/:driveId' element={<div>Individual Drive</div>} />

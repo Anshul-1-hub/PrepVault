@@ -1,4 +1,4 @@
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { authClient } from "../lib/auth"
 import { useQuery } from "@tanstack/react-query"
 import { instance } from "../lib/api"
